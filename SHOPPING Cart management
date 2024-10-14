@@ -1,0 +1,130 @@
+import java.util.ArrayList;  
+import java.util.HashMap;  
+import java.util.List;  
+import java.util.Map;  
+  
+// CartItem class, representing an item in the shopping cart  
+class CartItem {  
+    private String productId;  
+    private String productName;  
+    private int quantity;  
+    private double price;  
+  
+    public CartItem(String productId, String productName, int quantity, double price) {  
+        this.productId = productId;  
+        this.productName = productName;  
+        this.quantity = quantity;  
+        this.price = price;  
+    }  
+  
+    public String getProductId() {  
+        return productId;  
+    }  
+  
+    public String getProductName() {  
+        return productName;  
+    }  
+  
+    public int getQuantity() {  
+        return quantity;  
+    }  
+  
+    public void setQuantity(int quantity) {  
+        this.quantity = quantity;  
+    }  
+  
+    public double getPrice() {  
+        return price;  
+    }  
+  
+    public double getTotalPrice() {  
+        return quantity * price;  
+    }  
+  
+    @Override  
+    public String toString() {  
+        return "CartItem{" +  
+                "productId='" + productId + '\'' +  
+                ", productName='" + productName + '\'' +  
+                ", quantity=" + quantity +  
+                ", price=" + price +  
+                '}';  
+    }  
+}  
+  
+// ShoppingCart class, managing multiple cart items  
+class ShoppingCart {  
+    private Map<String, CartItem> items; // Using product ID as key to store cart items  
+  
+    public ShoppingCart() {  
+        items = new HashMap<>();  
+    }  
+  
+    // Add an item to the shopping cart, update quantity if the item already exists  
+    public void addItem(String productId, String productName, int quantity, double price) {  
+        if (items.containsKey(productId)) {  
+            CartItem item = items.get(productId);  
+            item.setQuantity(item.getQuantity() + quantity);  
+        } else {  
+            items.put(productId, new CartItem(productId, productName, quantity, price));  
+        }  
+    }  
+  
+    // Remove an item from the shopping cart  
+    public void removeItem(String productId) {  
+        items.remove(productId);  
+    }  
+  
+    // Get all items in the shopping cart  
+    public List<CartItem> getItems() {  
+        return new ArrayList<>(items.values());  
+    }  
+  
+    // Calculate the total price of the shopping cart  
+    public double getTotalPrice() {  
+        double total = 0;  
+        for (CartItem item : items.values()) {  
+            total += item.getTotalPrice();  
+        }  
+        return total;  
+    }  
+  
+    @Override  
+    public String toString() {  
+        StringBuilder sb = new StringBuilder();  
+        sb.append("ShoppingCart{\n");  
+        for (CartItem item : items.values()) {  
+            sb.append("  ").append(item.toString()).append("\n");  
+        }  
+        sb.append("  totalPrice=").append(getTotalPrice()).append("\n");  
+        sb.append('}');  
+        return sb.toString();  
+    }  
+}  
+  
+// Class to test the shopping cart functionality  
+public class ShoppingCartApp {  
+    public static void main(String[] args) {  
+        ShoppingCart cart = new ShoppingCart();  
+  
+        // Add items to the shopping cart  
+        cart.addItem("1", "Laptop", 1, 1200.0);  
+        cart.addItem("2", "Smartphone", 2, 800.0);  
+        cart.addItem("3", "Headphones", 1, 150.0);  
+  
+        // Print the shopping cart content  
+        System.out.println(cart);  
+  
+        // Update item quantity  
+        cart.addItem("2", "Smartphone", 1, 800.0); // Add another smartphone  
+  
+        // Print the updated shopping cart content  
+        System.out.println(cart);  
+  
+        // Remove an item  
+        cart.removeItem("3");  
+  
+        // Print the final shopping cart content  
+        System.out.println(cart);  
+    }  
+}

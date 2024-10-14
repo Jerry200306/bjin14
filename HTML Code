@@ -1,0 +1,92 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Xinghuo Bookstore</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            margin: 0;  
+            padding: 0;  
+            background-color: #f4f4f4;  
+        }  
+        .header {  
+            background-color: #333;  
+            color: #fff;  
+            padding: 10px 20px;  
+            text-align: center;  
+        }  
+        .menu {  
+            display: flex;  
+            justify-content: center;  
+            background-color: #ddd;  
+            padding: 10px 0;  
+        }  
+        .menu a {  
+            color: #333;  
+            text-decoration: none;  
+            padding: 10px 20px;  
+        }  
+        .menu a:hover {  
+            background-color: #ccc;  
+        }  
+        .book-list {  
+            display: flex;  
+            flex-wrap: wrap;  
+            justify-content: space-around;  
+            padding: 20px;  
+        }  
+        .book {  
+            background-color: #fff;  
+            margin: 10px;  
+            padding: 20px;  
+            width: calc(33% - 20px);  
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);  
+        }  
+        .book img {  
+            max-width: 100%;  
+            height: auto;  
+        }  
+        .book h3 {  
+            color: #333;  
+        }  
+        .book p {  
+            color: #666;  
+        }  
+        .footer {  
+            background-color: #333;  
+            color: #fff;  
+            text-align: center;  
+            padding: 10px 20px;  
+            position: absolute;  
+            bottom: 0;  
+            width: 100%;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="header">  
+        <h1>Welcome to Xinghuo Bookstore</h1>  
+    </div>  
+    <div class="menu">  
+        <a href="#">Home</a>  
+        <a href="#">Book Categories</a>  
+        <a href="#">Bestsellers</a>  
+        <a href="#">New Arrivals</a>  
+        <a href="#">About Us</a>  
+    </div>  
+    <div class="book-list">  
+        <!-- Book List -->  
+        <div class="book">  
+            <img src="book1.jpg" alt="Book Cover">  
+            <h3>Book Title 1</h3>  
+            <p>Book Description...</p>  
+        </div>  
+        <!-- More Books -->  
+    </div>		  
+    <div class="footer">  
+        <p>© 2024 Online Bookstore. All Rights Reserved.</p>  
+    </div>  
+</body>	  
+</html>

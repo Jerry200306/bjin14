@@ -1,0 +1,128 @@
+import java.util.ArrayList;  
+import java.util.HashMap;  
+import java.util.List;  
+import java.util.Map;  
+import java.util.UUID;  
+  
+// Order status enumeration  
+enum OrderStatus {  
+    CREATED, PAID, SHIPPED, COMPLETED, CANCELLED  
+}  
+  
+// Order class  
+class Order {  
+    private String orderId;  
+    private List<OrderItem> items;  
+    private OrderStatus status;  
+    private String paymentId; // Payment ID returned by the payment gateway  
+    private String shippingId; // Tracking ID returned by the shipping service  
+  
+    // Constructor and other getter/setter methods  
+    public Order(List<OrderItem> items) {  
+        this.orderId = UUID.randomUUID().toString();  
+        this.items = items;  
+        this.status = OrderStatus.CREATED;  
+    }  
+  
+    // Method to update the order status  
+    public void updateStatus(OrderStatus newStatus) {  
+        this.status = newStatus;  
+    }  
+  
+    // Other methods...  
+  
+    @Override  
+    public String toString() {  
+        return "Order{" +  
+                "orderId='" + orderId + '\'' +  
+                ", items=" + items +  
+                ", status=" + status +  
+                ", paymentId='" + paymentId + '\'' +  
+                ", shippingId='" + shippingId + '\'' +  
+                '}';  
+    }  
+}  
+  
+// Order item class  
+class OrderItem {  
+    private String productId;  
+    private int quantity;  
+    private double price;  
+  
+    // Constructor and other getter/setter methods  
+    public OrderItem(String productId, int quantity, double price) {  
+        this.productId = productId;  
+        this.quantity = quantity;  
+        this.price = price;  
+    }  
+  
+    // Other methods...  
+  
+    @Override  
+    public String toString() {  
+        return "OrderItem{" +  
+                "productId='" + productId + '\'' +  
+                ", quantity=" + quantity +  
+                ", price=" + price +  
+                '}';  
+    }  
+}  
+  
+// Order processing service class  
+class OrderProcessingService {  
+    private Map<String, Order> orders = new HashMap<>();  
+  
+    // Method to create an order  
+    public Order createOrder(List<OrderItem> items) {  
+        Order order = new Order(items);  
+        orders.put(order.getOrderId(), order);  
+        return order;  
+    }  
+  
+    // Method to update the order status (simplified version, without payment and shipping integration)  
+    public void updateOrderStatus(String orderId, OrderStatus newStatus) {  
+        Order order = orders.get(orderId);  
+        if (order != null) {  
+            order.updateStatus(newStatus);  
+            // Additional logic can be added here, such as notifying the user or administrator  
+        } else {  
+            System.out.println("Order not found with ID: " + orderId);  
+        }  
+    }  
+  
+    // Method to get an order  
+    public Order getOrder(String orderId) {  
+        return orders.get(orderId);  
+    }  
+  
+    // Other methods...  
+}  
+  
+// Main class for testing  
+public class OrderProcessingApp {  
+    public static void main(String[] args) {  
+        OrderProcessingService service = new OrderProcessingService();  
+  
+        // Create order items  
+        OrderItem item1 = new OrderItem("book1", 1, 29.99);  
+        OrderItem item2 = new OrderItem("book2", 2, 19.99);  
+  
+        // Create an order  
+        List<OrderItem> items = new ArrayList<>();  
+        items.add(item1);  
+        items.add(item2);  
+        Order order = service.createOrder(items);  
+  
+        // Print order information  
+        System.out.println("Created Order: " + order);  
+  
+        // Update order status  
+        service.updateOrderStatus(order.getOrderId(), OrderStatus.PAID);  
+        service.updateOrderStatus(order.getOrderId(), OrderStatus.SHIPPED);  
+        service.updateOrderStatus(order.getOrderId(), OrderStatus.COMPLETED);  
+  
+        // Retrieve and print updated order information  
+        Order updatedOrder = service.getOrder(order.getOrderId());  
+        System.out.println("Updated Order: " + updatedOrder);  
+    }  
+}

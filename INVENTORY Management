@@ -1,0 +1,135 @@
+import java.util.HashMap;  
+import java.util.Map;  
+import java.util.Scanner;  
+  
+public class BookInventoryManagement {  
+  
+    // Simulate the book inventory using a Map to store book IDs and their quantities  
+    private static Map<String, Integer> inventory = new HashMap<>();  
+  
+    public static void main(String[] args) {  
+        // Create a Scanner object to read user input from the console  
+        Scanner scanner = new Scanner(System.in);  
+  
+        // Provide a simple menu for user to choose operations  
+        while (true) {  
+            System.out.println("Book Inventory Management System");  
+            System.out.println("1. View Inventory");  
+            System.out.println("2. Modify Inventory");  
+            System.out.println("3. Add New Book");  
+            System.out.println("4. Delete Book");  
+            System.out.println("5. Query Book Inventory");  
+            System.out.println("6. Exit");  
+            System.out.print("Please select an operation (1/2/3/4/5/6): ");  
+  
+            int choice = scanner.nextInt();  
+            scanner.nextLine(); // Consume the newline character  
+  
+            switch (choice) {  
+                case 1:  
+                    viewInventory();  
+                    break;  
+                case 2:  
+                    modifyInventory(scanner);  
+                    break;  
+                case 3:  
+                    addNewBook(scanner);  
+                    break;  
+                case 4:  
+                    deleteBook(scanner);  
+                    break;  
+                case 5:  
+                    queryBookInventory(scanner);  
+                    break;  
+                case 6:  
+                    System.out.println("Exiting the system.");  
+                    scanner.close();  
+                    return;  
+                default:  
+                    System.out.println("Invalid selection, please try again.");  
+            }  
+        }  
+    }  
+  
+    // Method to view inventory  
+    private static void viewInventory() {  
+        System.out.println("Current Inventory:");  
+        for (Map.Entry<String, Integer> entry : inventory.entrySet()) {  
+            System.out.println("Book ID: " + entry.getKey() + ", Quantity: " + entry.getValue());  
+        }  
+    }  
+  
+    // Method to modify inventory  
+    private static void modifyInventory(Scanner scanner) {  
+        System.out.print("Please enter the book ID to modify: ");  
+        String bookId = scanner.nextLine();  
+  
+        if (!inventory.containsKey(bookId)) {  
+            System.out.println("Book ID not found, please try again.");  
+            return;  
+        }  
+  
+        System.out.print("Please enter the new quantity: ");  
+        int newQuantity;  
+        try {  
+            newQuantity = Integer.parseInt(scanner.nextLine());  
+        } catch (NumberFormatException e) {  
+            System.out.println("Invalid input, please enter an integer.");  
+            return;  
+        }  
+  
+        inventory.put(bookId, newQuantity);  
+        System.out.println("Inventory has been updated.");  
+    }  
+  
+    // Method to add a new book to the inventory  
+    private static void addNewBook(Scanner scanner) {  
+        System.out.print("Please enter the new book ID: ");  
+        String bookId = scanner.nextLine();  
+  
+        if (inventory.containsKey(bookId)) {  
+            System.out.println("Book ID already exists, please enter a different ID.");  
+            return;  
+        }  
+  
+        System.out.print("Please enter the initial quantity: ");  
+        int initialQuantity;  
+        try {  
+            initialQuantity = Integer.parseInt(scanner.nextLine());  
+        } catch (NumberFormatException e) {  
+            System.out.println("Invalid input, please enter an integer.");  
+            return;  
+        }  
+  
+        inventory.put(bookId, initialQuantity);  
+        System.out.println("New book has been added to the inventory.");  
+    }  
+  
+    // Method to delete a book from the inventory  
+    private static void deleteBook(Scanner scanner) {  
+        System.out.print("Please enter the book ID to delete: ");  
+        String bookId = scanner.nextLine();  
+  
+        if (!inventory.containsKey(bookId)) {  
+            System.out.println("Book ID not found, please try again.");  
+            return;  
+        }  
+  
+        inventory.remove(bookId);  
+        System.out.println("Book has been deleted from the inventory.");  
+    }  
+  
+    // Method to query the inventory of a specific book  
+    private static void queryBookInventory(Scanner scanner) {  
+        System.out.print("Please enter the book ID to query: ");  
+        String bookId = scanner.nextLine();  
+  
+        if (!inventory.containsKey(bookId)) {  
+            System.out.println("Book ID not found, please try again.");  
+            return;  
+        }  
+  
+        int quantity = inventory.get(bookId);  
+        System.out.println("The inventory of book ID " + bookId + " is: " + quantity);  
+    }  
+}

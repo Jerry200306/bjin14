@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;  
             margin: 0;  
             padding: 0;  
-            background-color: #f4f4f4;  
+            background-color: #f4f4f4;//The background color was originally set to white, but later it was changed back to coincide with the text color and background
         }  
         .header {  
             background-color: #333;  
